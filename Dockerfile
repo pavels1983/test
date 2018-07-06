@@ -31,9 +31,9 @@ RUN /var/run/sshd/sshd_start.sh && \
     su gpadmin -l -c "cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys" && \
     su gpadmin -l -c "chmod 600 ~/.ssh/authorized_keys" && \
     su gpadmin -l -c "ssh-keyscan -H localhost 2>/dev/null | grep rsa | awk '{print \"localhost \" \$2 \" \" \$3 }' >> ~/.ssh/known_hosts" && \
-	echo "RemoveIPC=no" >> /etc/systemd/logind.conf && \
-	export distr_name=`ls /tmp | grep greenplum-db` && \
-	export distr_name="${distr_name%%.???}" && \
+    echo "RemoveIPC=no" >> /etc/systemd/logind.conf && \
+    export distr_name=`ls /tmp | grep greenplum-db` && \
+    export distr_name="${distr_name%%.???}" && \
     unzip /tmp/${distr_name}.zip -d /tmp/ && \
     rm /tmp/${distr_name}.zip && \
     sed -i s/"more << EOF"/"cat << EOF"/g /tmp/${distr_name}.bin && \
@@ -47,16 +47,16 @@ RUN /var/run/sshd/sshd_start.sh && \
     mkdir -p /gpdata/master /gpdata/segments && \
     chown -R gpadmin: /gpdata && \
     chown gpadmin: /tmp/gpinit_conf_singlenode && \
-	su gpadmin -l -c "source ${install_path}/greenplum_path.sh;gpssh-exkeys -f ${install_path}/gp_hosts_list" && \
-	su gpadmin -l -c "source ${install_path}/greenplum_path.sh;${install_path}/bin/gpinitsystem -a -c /tmp/gpinit_conf_singlenode -h ${install_path}/gp_hosts_list";\
+    su gpadmin -l -c "source ${install_path}/greenplum_path.sh;gpssh-exkeys -f ${install_path}/gp_hosts_list" && \
+    su gpadmin -l -c "source ${install_path}/greenplum_path.sh;${install_path}/bin/gpinitsystem -a -c /tmp/gpinit_conf_singlenode -h ${install_path}/gp_hosts_list";\
     su gpadmin -l -c "echo -e 'source ${install_path}/greenplum_path.sh' >> ~/.bashrc" && \
     su gpadmin -l -c "echo -e 'export MASTER_DATA_DIRECTORY=/gpdata/master/gpseg-1' >> ~/.bashrc" && \
     su gpadmin -l -c "echo -e 'export LD_PRELOAD=/lib64/libz.so.1 ps' >> ~/.bashrc" && \
     su gpadmin -l -c "source ~/.bashrc;psql -d template1 -c \"alter user gpadmin password '${password}'\"" && \
     su gpadmin -l -c "${install_path}/bin/createdb gpadmin; exit 0" && \
     su gpadmin -l -c "echo \"host all all 0.0.0.0/0 md5\" >> /gpdata/master/gpseg-1/pg_hba.conf" && \
-	hostname > /tmp/gpinitsystem_hostname && \
-	echo -e "\nBUILD DONE!"
+    hostname > /tmp/gpinitsystem_hostname && \
+    echo -e "\nBUILD DONE!"
 
 EXPOSE 5432 22
 
@@ -64,5 +64,5 @@ VOLUME /gpdata
 
 CMD echo "127.0.0.1 $(cat /tmp/gpinitsystem_hostname)" >> /etc/hosts && \
     /var/run/sshd/sshd_start.sh && \
-	su gpadmin -l -c ". ~/.bashrc; gpstart -a" && \
-	/bin/bash
+    su gpadmin -l -c ". ~/.bashrc; gpstart -a" && \
+    /bin/bash
