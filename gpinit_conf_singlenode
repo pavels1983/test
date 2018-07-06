@@ -1,0 +1,11 @@
+ARRAY_NAME="GBP Docker by P.S."
+MACHINE_LIST_FILE=/usr/local/greenplum-db-5.9.0/gp_hosts_list
+SEG_PREFIX=gpseg
+PORT_BASE=50000
+declare -a DATA_DIRECTORY=(/gpdata/segments /gpdata/segments )
+MASTER_HOSTNAME=localhost
+MASTER_DIRECTORY=/gpdata/master
+MASTER_PORT=5432
+TRUSTED_SHELL=ssh
+CHECK_POINT_SEGMENTS=8
+ENCODING=UNICODE
