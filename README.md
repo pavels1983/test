@@ -1,7 +1,8 @@
 # Greenplum-DB 5.9 Dockerfile
 
 For build:
-* Download GP binaries from https://network.pivotal.io/products/pivotal-gpdb#/releases/118471/file_groups/1013
+* Download GP binaries from https://network.pivotal.io/products/pivotal-gpdb#/releases/118471/file_groups/1013 and put into work dir
+* Put all files into work dir
 * cd [docker working directory]
 * docker build -t gp59-image .
 
